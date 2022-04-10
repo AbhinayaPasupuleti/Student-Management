@@ -1,0 +1,275 @@
+<html>
+<head>
+<title>Student Management</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script
+	src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+<!-- CSS -->
+<link rel="stylesheet"
+	href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+<!-- Default theme -->
+<link rel="stylesheet"
+	href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+<!-- Semantic UI theme -->
+<link rel="stylesheet"
+	href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+<!-- Bootstrap theme -->
+
+<link rel="stylesheet"
+	href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.rtl.min.css" />
+<!-- Default theme -->
+<link rel="stylesheet"
+	href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.rtl.min.css" />
+<!-- Semantic UI theme -->
+<link rel="stylesheet"
+	href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.rtl.min.css" />
+<script>
+function saveStudent() {
+    if (!validateRegistration()) {
+        var inputPayload = {
+            "firstName": $("#firstName").val(),
+            "lastName": $("#lastName").val(),
+            "age": $("#age").val(),
+            "email": $("#emailId").val(),
+            "contact": $("#contact").val(),
+            "userName": $("#username").val(),
+            "password": $("#password").val(),
+            "gender": $("#salaryId").val(),
+            "address": $("#addressId").val(),
+            "dept": $("#deptId").val(),
+        }
+        var inputPayloadString = JSON.stringify(inputPayload);
+        jQuery.ajax({
+            type: 'POST',
+            cache: true,
+            async: false,
+            contentType: 'application/json',
+            dataType: 'json',
+            url: location.origin+"/student",
+            data: inputPayloadString,
+            success: function(data) {
+                clearAllFormData();
+                alertify.alert('Confirmation', 'Suceesfully Created!!',
+                    function() {});
+            },
+            error() {
+                clearAllFormData();
+                alertify.alert('Confirmation', 'Suceesfully Created!!',
+                    function() {});
+            }
+        });
+    }
+
+}
+
+function clearAllFormData() {
+	$("#firstName").val('');
+	$("#lastName").val('');
+	$("#age").val('');
+	$("#emailId").val('');
+	$("#contact").val('');
+	$("#username").val('');
+	$("#addressId").val('');
+	$("#deptId").val('');
+	$("#password").val('')
+}
+
+
+function validateRegistration() {
+    var isValidationFailed = false;
+    debugger;
+    if ($("#firstName").val() == '') {
+        document.getElementById("firstNameSpanId").style.display = 'block';
+        isValidationFailed = true;
+    } else {
+        document.getElementById("firstNameSpanId").style.display = 'none';
+    }
+
+
+    if ($("#contact").val() == '') {
+        document.getElementById("contactSpanId").style.display = 'block';
+        isValidationFailed = true;
+    } else {
+        document.getElementById("contactSpanId").style.display = 'none';
+    }
+
+    if ($("#username").val() == '') {
+        document.getElementById("usernameSpanId").style.display = 'block';
+        isValidationFailed = true;
+    } else {
+        document.getElementById("usernameSpanId").style.display = 'none';
+    }
+
+    if ($("#password").val() == '') {
+        document.getElementById("passwordSpanId").style.display = 'block';
+        isValidationFailed = true;
+    } else {
+        document.getElementById("passwordSpanId").style.display = 'none';
+    }
+
+    if ($("#deptId").val() == '') {
+        document.getElementById("departmentSpanId").style.display = 'block';
+        isValidationFailed = true;
+    } else {
+        document.getElementById("departmentSpanId").style.display = 'none';
+    }
+
+
+
+    return isValidationFailed;
+
+
+}
+	
+	
+	
+	
+	
+</script>
+
+
+
+</head>
+<body>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/">Home</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<i>New Student Registration</i>
+			</div>
+			<form>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label for="firstname">First Name:<span style="color: red"><b>*</b></span></label>
+								<input type="text" class="form-control" id="firstName"
+									placeholder="Enter First Name"> <span
+									style="color: red; display: none" id="firstNameSpanId">Please
+									Enter First Name</span>
+							</div>
+
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label for="lastname">Last Name:</label> <input type="text"
+									class="form-control" id="lastName"
+									placeholder="Enter Last Name">
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label for="age">Age:</label> <input type="number"
+									class="form-control" id="age" placeholder="Enter age">
+							</div>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label for="email">Email:</label> <input type="email"
+									class="form-control" id="emailId"
+									placeholder="Enter Email">
+							</div>
+
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label for="contact">Contact:<span style="color: red"><b>*</b></span></label>
+								<input type="number" class="form-control" id="contact"
+									placeholder="Enter contact"> <span
+									style="color: red; display: none" id="contactSpanId">
+									Enter Contact</span>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label for="username">UserName:<span style="color: red"><b>*</b></span></label>
+								<input type="text" class="form-control" id="username"
+									placeholder="Please Enter UserName"> <span
+									style="color: red; display: none" id="usernameSpanId">
+									Enter UserName</span>
+							</div>
+
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label for="password">Password:<span style="color: red"><b>*</b></span></label>
+								<input type="password" class="form-control" id="password"
+									placeholder="Please Enter Password"> <span
+									style="color: red; display: none" id="passwordSpanId">
+									Enter Password</span>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label for="department">Department:<span style="color: red"><b>*</b></span></label>
+								<select class="form-control" id="deptId">
+									<option value="">Select Department</option>
+									<option value="Computer Science">Computer Science </option>
+									<option value="Electronics & Electrical Engineering">Electronics & Electrical Engineering</option>
+									<option value="Electronics & Communication Engineering">Electronics & Communication Engineering</option>
+									<option value="Civil Engineering">Civil Engineering</option>
+									<option value="Metallurgical Engineering">Metallurgical Engineering</option>
+									<option value="Chemical Engineering">Chemical Engineering</option>
+									<option value="Aeronautical Engineering">Aeronautical Engineering</option>
+								</select> <span style="color: red; display: none" id="departmentSpanId">Please
+									Enter Department</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-12">
+							<label for="Gender">Gender:<span style="color: red"><b>*</b></span></label>
+							<label class="radio-inline"> <input type="radio"
+								name="gender">Female
+							</label> <label class="radio-inline"><input type="radio"
+								name="gender">Male</label>
+						</div>
+						<span style="color: red; display: none" id="genderSpanId">Please
+							Select Gender</span>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-12">
+							<label for="email">Address:</label>
+							<textarea rows="3" cols="155" class="form-control"
+								placeholder="Please Enter Address" id="addressId"></textarea>
+
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer">
+					<button type="button" class="btn btn-primary"
+						onclick="saveStudent()">Submit</button>
+				</div>
+			</form>
+		</div>
+
+	</div>
+</body>
+</html>
